@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clickoon</title>
+    <link rel="stylesheet" href="dash.css">
+    <link rel="icon" type="image/x-icon" href="images/title.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Add this line -->
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>Dashboard</h2>
+    <a href="#">Home</a>
+    <a href="#">letters</a>
+    <a href="#">Courses</a>
+    <a href="#">Messages</a>
+    <a href="#">Settings</a>
+    <a href="#">Profile</a>
+    <a href="#">Logout</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <header>
+        <button class="toggle-btn" id="toggleBtn">☰</button>
+        <h1>Welcome Back, User!</h1>
+        <div class="status">
+            <span style="font-size: 30px;">❤️ <span id="hearts">3</span></span>
+            <span style="font-size: 30px;"> 💎 <span id="gems">50</span></span>
+            <span style="font-size: 30px;"> 🔥 <span id="streak">7</span></span>
+        </div>
+    </header>
+
+    <!-- Learning Path Section -->
+<section class="learning-path">
+    <h2>Your Learning Path</h2>
+    <div class="learning-content">
+        <!-- Steps Section (Left Column) -->
+        <div class="steps-container zigzag">
+            <div class="step active">
+                <div class="circle">1</div>
+                <div class="label">Beginner</div>
+            </div>
+            <div class="step">
+                <div class="circle">2</div>
+                <div class="label">Intermediate</div>
+            </div>
+            <div class="step">
+                <div class="circle">3</div>
+                <div class="label">Advanced</div>
+            </div>
+            <div class="step">
+                <div class="circle">4</div>
+                <div class="label">Fluent</div>
+            </div>
+        </div>
+
+        <!-- Image Section (Right Column) -->
+        <div class="image-container">
+            <img src="images/mask.png"  width="300" height="350" class="placeholder-image">
+        </div>
+    </div>
+    
+    <br>
+    <button class="start-btn" onclick="moveToNextStep()">Complete Lesson</button>
+</section>
+
+    <!-- Dashboard Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Total Points</h3>
+            <p>12,345</p>
+        </div>
+        <div class="card">
+            <h3>Daily Streak</h3>
+            <p>45 Days</p>
+        </div>
+        <div class="card">
+            <h3>Languages Learned</h3>
+            <p>3</p>
+        </div>
+        <div class="card">
+            <h3>Achievements</h3>
+            <p>8 Badges</p>
+        </div>
+    </div>
+
+    <!-- Charts and Tables -->
+    <div class="charts">
+        <!-- Chart Section -->
+        <div class="chart-container">
+            <h3 style="color: #F2721A; font-size:25px">Weekly Activity</h3>
+            <canvas id="activityChart"></canvas>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-container">
+            <h3 style="color: #F2721A; font-size:25px">Recent Lessons</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lesson</th>
+                        <th>Language</th>
+                        <th>Score</th>
+                        <th>Date Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Basics 1</td>
+                        <td>Spanish</td>
+                        <td>95%</td>
+                        <td>Oct 1, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>Grammar Basics</td>
+                        <td>French</td>
+                        <td>88%</td>
+                        <td>Oct 2, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>Vocabulary Expansion</td>
+                        <td>German</td>
+                        <td>92%</td>
+                        <td>Oct 3, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>Intermediate Phrases</td>
+                        <td>Japanese</td>
+                        <td>85%</td>
+                        <td>Oct 4, 2024</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Language Learning Platform</title>
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #f8f9fa;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: #000;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        nav .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        nav a.button {
+            padding: 8px 16px;
+            border: 1px solid #007bff;
+            color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        nav a.button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        header h1 {
+            font-size: 3rem;
+        }
+        header p {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        header a {
+            background-color: #fff;
+            color: #007bff;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 1.25rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        header a:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* Features Section */
+        #features {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        #features h2 {
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        .feature {
+            display: inline-block;
+            width: 30%;
+            padding: 20px;
+            text-align: center;
+        }
+        .feature i {
+            font-size: 50px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .feature h3 {
+            margin: 20px 0 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Languages Section */
+        #languages {
+            background-color: #f8f9fa;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        #languages h2 {
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        .language-card {
+            display: inline-block;
+            width: 23%;
+            margin: 0 1%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: center;
+        }
+        .language-card img {
+            width: 100%;
+            height: auto;
+        }
+        .language-card h5 {
+            margin: 15px 0 10px;
+            font-size: 1.25rem;
+        }
+        .language-card p {
+            padding: 0 10px 15px;
+            font-size: 1rem;
+        }
+        .language-card a {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .language-card a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        #contact h2 {
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        .contact-form {
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .contact-form button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .feature, .language-card {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-logo">
+        <a href="#">LearnLanguages</a>
+    </div>
+    <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#languages">Languages</a>
+        <a href="#contact">Contact Us</a>
+        <a href="signup.html" class="button">Sign Up</a>
+        <a href="login.html" class="button">Log In</a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<header>
+    <h1>Learn Languages Easily & Quickly</h1>
+    <p>Master a new language with interactive lessons, quizzes, and daily challenges!</p>
+    <a href="signup.html">Get Started</a>
+</header>
+
+<!-- Features Section -->
+<section id="features">
+    <h2>Our Features</h2>
+    <div class="feature">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>Interactive Lessons</h3>
+        <p>Engage in lessons that cover grammar, vocabulary, and more with real-time feedback.</p>
+    </div>
+    <div class="feature">
+        <i class="fas fa-trophy"></i>
+        <h3>Gamified Learning</h3>
+        <p>Earn points, unlock achievements, and build streaks as you learn every day.</p>
+    </div>
+    <div class="feature">
+        <i class="fas fa-users"></i>
+        <h3>Community Support</h3>
+        <p>Join a community of learners and help each other succeed in mastering new languages.</p>
+    </div>
+</section>
+
+<!-- Languages Section -->
+<section id="languages">
+    <h2>Languages You Can Learn</h2>
+    <div class="language-card">
+        <img src="images/spanish.jpg" alt="Spanish">
+        <h5>Spanish</h5>
+        <p>Learn the second most spoken language in the world!</p>
+        <a href="#">Start Learning</a>
+    </div>
+    <div class="language-card">
+        <img src="images/french.jpg" alt="French">
+        <h5>French</h5>
+        <p>Explore the beauty of the French language and culture.</p>
+        <a href="#">Start Learning</a>
+    </div>
+    <div class="language-card">
+        <img src="images/german.jpg" alt="German">
+        <h5>German</h5>
+        <p>Dive into the language of engineering and precision.</p>
+        <a href="#">Start Learning</a>
+    </div>
+    <div class="language-card">
+        <img src="images/japanese.jpg" alt="Japanese">
+        <h5>Japanese</h5>
+        <p>Master the language of Japan and explore its rich culture.</p>
+        <a href="#">Start Learning</a>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+        <input type="text" id="name" placeholder="Your Name">
+        <input type="email" id="email" placeholder="Your Email">
+        <textarea id="message" rows="4" placeholder="Your Message"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 LearnLanguages | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

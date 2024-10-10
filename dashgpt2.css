@@ -1,0 +1,220 @@
+/* General Body Styling */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f5f9;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Top Bar Styling */
+.top-bar {
+    background-color: #58CC02;
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Sidebar (Left Navigation) Styling */
+.sidebar {
+    background-color: #58CC02;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 40px; /* Adjusted for top bar */
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    color: white;
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+    height: 60px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    transition: background 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #4ba202;
+}
+
+/* Main Content Styling */
+.main-content {
+    margin-left: 250px;
+    margin-top: 40px; /* Adjusted for top bar */
+    padding: 20px;
+    width: 100%;
+}
+
+.dashboard {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Learning Path Section */
+.learning-path {
+    text-align: center;
+    margin: 30px auto;
+    background-color: #e0f7fa; /* Light water background */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative; /* For positioning labels */
+}
+
+/* Steps Container */
+.steps-container {
+    display: flex;
+    flex-direction: column; /* Stack steps vertically */
+    align-items: center; /* Center align steps */
+    position: relative; /* For absolute positioning of steps */
+    margin-top: 20px;
+}
+
+.step {
+    background-color: #ffab40; /* Orange pebble color */
+    width: 80px;
+    height: 80px;
+    margin: 20px 0; /* Vertical spacing between steps */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50%; /* Make it round like a pebble */
+    transition: transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.step:hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    animation: ripple 0.8s forwards; /* Trigger ripple animation on hover */
+}
+
+@keyframes ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* Zigzag Styling */
+.zigzag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+.zigzag .step:nth-child(odd) {
+    margin-left: -20px; /* Adjust for zigzag effect */
+}
+
+.zigzag .step:nth-child(even) {
+    margin-left: 20px; /* Adjust for zigzag effect */
+}
+
+/* Progress Tracking Section */
+.progress-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.progress-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid #e0e0e0;
+    position: relative;
+    margin: 0 auto;
+}
+
+.progress-value {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.completed {
+    border-color: #58CC02;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 30px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* Adjust top bar */
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

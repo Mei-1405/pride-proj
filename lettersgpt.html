@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindi Letters Dashboard</title>
+    <style>
+        /* Color Palette */
+        :root {
+            --primary: #d82640; /* Red */
+            --secondary: #F59235; /* Orange */
+            --white: #fff; /* White */
+            --black: #000; /* Black */
+            --bg-color: #FBFCF8; /* Light background */
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: var(--primary);
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 30px;
+        }
+
+        .sidebar a {
+            color: var(--white);
+            padding: 15px 20px;
+            display: block;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Top bar */
+        header {
+            background-color: var(--primary);
+            padding: 15px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 250px;
+            width: calc(100% - 250px);
+            z-index: 1;
+        }
+
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            padding-top: 80px; /* Adjusted for fixed header */
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Left section for letters */
+        .letters-container {
+            width: 50%; /* Left half of the row */
+        }
+
+        /* Flashcards */
+        .flashcards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 3 cards per row */
+            gap: 20px;
+            justify-items: center;
+            margin-top: 100px;
+        }
+
+        .flashcard {
+            background-color: #f7cda7;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #d82640;
+            
+            text-align: center;
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .flashcard.blank {
+            background-color: #f7cda7;
+            border-radius: 10px;
+            width: 120px;
+            border: 2px solid #d82640;
+        }
+        .flashcard.pronounication{
+            color: #000 ;
+        }
+        .flashcard:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Right section for image */
+        .image-container {
+            width: 50%; /* Right half of the row */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img {
+            max-width: 80%;
+            border-radius: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .letters-container, .image-container {
+                width: 100%;
+            }
+
+            .image-container {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>Dashboard</h2>
+    <a href="#">Home</a>
+    <a href="#">letters</a>
+    <a href="#">Courses</a>
+    <a href="#">Messages</a>
+    <a href="#">Settings</a>
+    <a href="#">Profile</a>
+    <a href="#">Logout</a>
+</div>
+
+    <!-- Top bar -->
+    <header>
+        <span style="font-size: 30px;">❤️ <span id="hearts">3</span></span>
+            <span style="font-size: 30px;"> 💎 <span id="gems">50</span></span>
+            <span style="font-size: 30px;"> 🔥 <span id="streak">7</span></span>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2 style="margin-left: 200px;">Let’s learn Hindi!</h2>
+        <!-- flashcards -->
+        <div class="letters-container">
+            <div class="flashcards" id="flashcards">
+                <!-- Flashcards will be dynamically populated here -->
+            </div>
+        </div>
+
+        
+    </div>
+
+    <script>
+        // Hindi Alphabets with categories (Vowels, Consonants, Combinations, Borrowed)
+        const hindiAlphabets = [
+            { letter: 'क', pronounication: 'ka' },
+            { letter: 'ख',pronounication: 'kha'},
+            { letter: 'ग', pronounication: 'ca' },
+            { letter: 'घ', pronounication: 'gha' },
+            { letter: '', pronounication: '' },
+            { letter: 'च', pronounication: 'ca' },
+            { letter: 'छ', pronounication: 'cha' },
+            { letter: 'ज', pronounication: 'ja' },
+            { letter: 'झ', pronounication: 'jha' },
+            { letter: '', pronounication: '' },
+            { letter: 'ट', pronounication: 'ta' },
+            { letter: 'ठ', pronounication: 'tha' },
+            { letter: 'ड', pronounication: 'da' },
+            { letter: 'ढ', pronounication: 'dha' },
+            { letter: '', pronounication: '' },
+            { letter: 'त', pronounication: 'ta' },
+            { letter: 'थ', pronounication: 'tha' },
+            { letter: 'द', pronounication: 'da' },
+            { letter: 'ध', pronounication: 'dha' },
+            { letter: 'न', pronounication: 'na' },
+            { letter: 'प',pronounication: 'pa'},
+            { letter: 'फ', pronounication: 'pha' },
+            { letter: 'ब', pronounication: 'ba' },
+            { letter: 'भ', pronounication: 'bha' },
+            { letter: 'म', pronounication: 'ma' },
+            { letter: 'य', pronounication: 'ya' },
+            { letter: 'र', pronounication: 'ra' },
+            { letter: 'ल', pronounication: 'la' },
+            { letter: 'व', pronounication: 'va' },
+            { letter: '', pronounication: '' },
+            { letter: 'श', pronounication: 'sha' },
+            { letter: 'ष', pronounication: 'sha' },
+            { letter: 'स', pronounication: 'sa' },
+            { letter: 'ह', pronounication: 'ha' },
+            { letter: '', pronounication: '' },
+
+        ];
+
+        // Dynamically create flashcards
+        const flashcardsContainer = document.getElementById('flashcards');
+        hindiAlphabets.forEach(item => {
+            const flashcard = document.createElement('div');
+            flashcard.classList.add('flashcard');
+            if (item.letter === '' && item.pronounication==='') {
+                flashcard.classList.add('blank');
+            }
+            flashcard.innerText = item.letter+item.pronounication;
+            flashcardsContainer.appendChild(flashcard);
+        });
+    </script>
+
+</body>
+</html>

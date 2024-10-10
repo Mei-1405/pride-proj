@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Responsive Dashboard</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            color: #fff;
+            padding: 15px 20px;
+            display: block;
+            text-decoration: none;
+            margin: 5px 0;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            transition: margin-left 0.3s ease;
+        }
+
+        header {
+            background-color: #007bff;
+            padding: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 250px;
+            width: calc(100% - 250px);
+            z-index: 1;
+        }
+
+        header h1 {
+            flex: 1;
+            text-align: center;
+            margin: 0;
+        }
+
+        .toggle-btn {
+            display: none;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .content {
+            margin-top: 80px; /* Space for the fixed header */
+        }
+
+        /* Dashboard Cards */
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        /* Charts and Tables */
+        .charts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .chart-container, .table-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .chart-container canvas {
+            width: 100%;
+            max-height: 300px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-250px);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            header {
+                left: 0;
+                width: 100%;
+            }
+
+            .toggle-btn {
+                display: block;
+                margin-right: 10px;
+            }
+
+            .cards, .charts {
+                flex-direction: column;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Dashboard</h2>
+        <a href="#">Home</a>
+        <a href="#">Analytics</a>
+        <a href="#">Courses</a>
+        <a href="#">Messages</a>
+        <a href="#">Settings</a>
+        <a href="#">Profile</a>
+        <a href="#">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <button class="toggle-btn" id="toggleBtn">☰</button>
+            <h1>Welcome Back, User!</h1>
+        </header>
+
+        <div class="content">
+            <!-- Dashboard Cards -->
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Points</h3>
+                    <p>12,345</p>
+                </div>
+                <div class="card">
+                    <h3>Daily Streak</h3>
+                    <p>45 Days</p>
+                </div>
+                <div class="card">
+                    <h3>Languages Learned</h3>
+                    <p>3</p>
+                </div>
+                <div class="card">
+                    <h3>Achievements</h3>
+                    <p>8 Badges</p>
+                </div>
+            </div>
+
+            <!-- Charts and Tables -->
+            <div class="charts">
+                <!-- Chart Section -->
+                <div class="chart-container">
+                    <h3>Weekly Activity</h3>
+                    <canvas id="activityChart"></canvas>
+                </div>
+
+                <!-- Table Section -->
+                <div class="table-container">
+                    <h3>Recent Lessons</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Lesson</th>
+                                <th>Language</th>
+                                <th>Score</th>
+                                <th>Date Completed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Basics 1</td>
+                                <td>Spanish</td>
+                                <td>95%</td>
+                                <td>Oct 1, 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Grammar Basics</td>
+                                <td>French</td>
+                                <td>88%</td>
+                                <td>Oct 2, 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Vocabulary Expansion</td>
+                                <td>German</td>
+                                <td>92%</td>
+                                <td>Oct 3, 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Intermediate Phrases</td>
+                                <td>Japanese</td>
+                                <td>85%</td>
+                                <td>Oct 4, 2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+<section class="content-section">
+    <h2>Messages</h2>
+    <div class="messages-container">
+        <div class="message">
+            <div class="message-header">
+                <strong>John Doe</strong>
+                <span class="message-time">2 mins ago</span>
+            </div>
+            <p class="message-body">Hey! Can we reschedule our meeting?</p>
+        </div>
+        <div class="message">
+            <div class="message-header">
+                <strong>Jane Smith</strong>
+                <span class="message-time">15 mins ago</span>
+            </div>
+            <p class="message-body">I have sent over the reports. Let me know your thoughts.</p>
+        </div>
+        <div class="message">
+            <div class="message-header">
+                <strong>Chris Brown</strong>
+                <span class="message-time">1 hour ago</span>
+            </div>
+            <p class="message-body">Thanks for your help with the project!</p>
+        </div>
+        <div class="message">
+            <div class="message-header">
+                <strong>Lisa White</strong>
+                <span class="message-time">Yesterday</span>
+            </div>
+            <p class="message-body">Could you please send me the updated files?</p>
+        </div>
+    </div>
+</section>
+
+<!-- Add this CSS to style the Messages Section -->
+<style>
+    .messages-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .message {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+    }
+
+    .message:last-child {
+        border-bottom: none;
+    }
+
+    .message-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1rem;
+        margin-bottom: 5px;
+    }
+
+    .message-body {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .message-time {
+        color: #999;
+        font-size: 0.85rem;
+    }
+</style>
+
+
+<!-- Settings Section -->
+<section class="content-section">
+    <h2>Settings</h2>
+    <div class="settings-container">
+        <!-- Account Settings -->
+        <div class="setting-group">
+            <h3>Account Settings</h3>
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="JohnDoe123">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="john.doe@example.com">
+
+                <label for="password">Change Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter new password">
+            </form>
+        </div>
+
+        <!-- Notifications Settings -->
+        <div class="setting-group">
+            <h3>Notifications</h3>
+            <form>
+                <div class="setting-item">
+                    <label for="email-notifications">Email Notifications:</label>
+                    <input type="checkbox" id="email-notifications" name="email-notifications" checked>
+                </div>
+
+                <div class="setting-item">
+                    <label for="sms-notifications">SMS Notifications:</label>
+                    <input type="checkbox" id="sms-notifications" name="sms-notifications">
+                </div>
+
+                <div class="setting-item">
+                    <label for="newsletter-subscription">Subscribe to Newsletter:</label>
+                    <input type="checkbox" id="newsletter-subscription" name="newsletter-subscription" checked>
+                </div>
+            </form>
+        </div>
+
+        <!-- Privacy Settings -->
+        <div class="setting-group">
+            <h3>Privacy</h3>
+            <form>
+                <label for="profile-visibility">Profile Visibility:</label>
+                <select id="profile-visibility" name="profile-visibility">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                    <option value="friends-only">Friends Only</option>
+                </select>
+
+                <label for="activity-status">Show Online Status:</label>
+                <input type="checkbox" id="activity-status" name="activity-status" checked>
+            </form>
+        </div>
+
+        <button type="submit" class="save-btn">Save Settings</button>
+    </div>
+</section>
+
+<!-- Add this CSS to style the Settings Section -->
+<style>
+    .settings-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .setting-group {
+        margin-bottom: 20px;
+    }
+
+    .setting-group h3 {
+        margin-bottom: 10px;
+        color: #007bff;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    form input[type="text"], form input[type="email"], form input[type="password"], select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .setting-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .setting-item label {
+        flex: 1;
+    }
+
+    .setting-item input[type="checkbox"] {
+        transform: scale(1.3);
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    .save-btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .save-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+            
+
+        </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggleBtn');
+
+        toggleBtn.addEventListener('click', function() {
+            if (sidebar.style.transform === 'translateX(0px)') {
+                sidebar.style.transform = 'translateX(-250px)';
+            } else {
+                sidebar.style.transform = 'translateX(0px)';
+            }
+        });
+
+        // Activity Chart using Chart.js
+        const ctx = document.getElementById('activityChart').getContext('2d');
+        const activityChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Points Earned',
+                    data: [120, 150, 180, 170, 200, 220, 250],
+                    backgroundColor: '#007bff',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+
+</body>
+</html>

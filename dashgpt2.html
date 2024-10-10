@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duolingo Dashboard Clone</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f5f9;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Bar Styling */
+        .top-bar {
+            background-color: #58CC02;
+            padding: 10px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar .status {
+            font-size: 16px;
+        }
+
+        /* Sidebar (Left Navigation) Styling */
+        .sidebar {
+            background-color: #58CC02;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 40px; /* Adjusted for top bar */
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            color: white;
+        }
+
+        .sidebar .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .logo img {
+            height: 60px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #4ba202;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 250px;
+            margin-top: 40px; /* Adjusted for top bar */
+            padding: 20px;
+            width: 100%;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Learning Path Section */
+        .learning-path {
+            text-align: center;
+            margin: 30px auto;
+            background-color: #e0f7fa; /* Light water background */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative; /* For positioning labels */
+        }
+
+        /* Steps Container */
+        .steps-container {
+            display: flex;
+            flex-direction: column; /* Stack steps vertically */
+            align-items: center; /* Center align steps */
+            position: relative; /* For absolute positioning of steps */
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #ffab40; /* Orange pebble color */
+            width: 80px;
+            height: 80px;
+            margin: 20px 0; /* Vertical spacing between steps */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 50%; /* Make it round like a pebble */
+            transition: transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .step:hover::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            animation: ripple 0.8s forwards; /* Trigger ripple animation on hover */
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Zigzag Styling */
+        .zigzag {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .zigzag .step:nth-child(odd) {
+            margin-left: -50px; /* Adjust for zigzag effect */
+        }
+
+        .zigzag .step:nth-child(even) {
+            margin-left: 50px; /* Adjust for zigzag effect */
+        }
+
+        /* Amateur and Pro Labels */
+        .level-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100%; /* Full width */
+            position: absolute;
+            top: -30px; /* Position above the steps */
+        }
+
+        .label {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 0 20px; /* Space between labels */
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .languages {
+                flex-direction: column;
+            }
+            .language-card {
+                margin-bottom: 15px;
+            }
+
+            /* Adjust sidebar for mobile */
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            /* Adjust top bar */
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar with Status -->
+    <div class="top-bar">
+        <div class="status">
+            <span>❤️ Attempts Left: <span id="hearts">3</span></span>
+            <span> 💎 Gems Gained: <span id="gems">50</span></span>
+            <span> 🏆 Streak: <span id="streak">7</span></span>
+        </div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Duolingo_logo.svg" alt="Duolingo Logo">
+        </div>
+        <ul>
+            <li><a href="#">Learn</a></li>
+            <li><a href="#">Letters</a></li>
+            <li><a href="#">Practice</a></li>
+            <li><a href="#">Leaderboards</a></li>
+            <li><a href="#">Quests</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">More</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <!-- Learning Path Section -->
+        <section class="learning-path">
+            <h2>Your Learning Path</h2>
+
+            <div class="level-labels">
+                <div class="label">Amateur</div>
+                <div class="label">Pro</div>
+            </div>
+
+            <div class="steps-container zigzag">
+                <div class="step active">1<br>Beginner</div>
+                <div class="step">2<br>Intermediate</div>
+                <div class="step active">3<br>Advanced</div>
+                <div class="step">4<br>Fluent</div>
+            </div>
+
+            <br>
+            <button class="start-btn" onclick="moveToNextStep()">Complete Lesson</button>
+        </section>
+
+        <!-- Progress Tracking Section -->
+        <section class="progress-section">
+            <h2>Your Learning Progress</h2>
+            <div class="progress-circle" id="progress-circle">
+                <div class="progress-value" id="progress-value">0%</div>
+            </div>
+            <button class="start-btn" onclick="updateProgress()">Update Progress</button>
+        </section>
+    </div>
+    
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Duolingo Dashboard Clone. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+        // Function to simulate moving to the next step in learning path
+        function moveToNextStep() {
+            const steps = document.querySelectorAll('.step');
+            for (let i = 0; i < steps.length; i++) {
+                if (steps[i].classList.contains('active')) {
+                    steps[i].classList.remove('active');
+                    if (i + 1 < steps.length) {
+                        steps[i + 1].classList.add('active');
+                    } else {
+                        alert('You have completed all levels!');
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Function to update progress
+        function updateProgress() {
+            const progressCircle = document.getElementById('progress-circle');
+            const progressValue = document.getElementById('progress-value');
+
+            // Example: Incrementing progress by 10% for demonstration
+            let currentProgress = parseInt(progressValue.textContent);
+            if (currentProgress < 100) {
+                currentProgress += 10;
+                progressValue.textContent = currentProgress + '%';
+                if (currentProgress === 100) {
+                    progressCircle.classList.add('completed');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
